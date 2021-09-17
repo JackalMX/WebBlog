@@ -4,17 +4,32 @@
 
 }
 
-<h2>Home Page</h2>
+@*<h2>Home Page</h2>
 
-<img src="~/content/static/aUJN9nECCow.jpg" width="500" />
-<div>
+<img src="~/content/static/aUJN9nECCow.jpg" width="500" />*@
+
+<div class="main-img">
+    <div class="blur"><span class="title">noframe's blog</span></div>
+</div>
+
+<div class="container">
     <ul>
         @foreach(var post in Model)
         {
+            var image_path = $"/Image/{post.Image}";
             <li>
                 <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
                     @post.Title
                 </a>
+                <p>
+                    @post.Body
+                </p>
+                <a class="post" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                    <img src = "@image_path" width="500" />
+                </a>
+                <p>
+                    @post.Created
+                </p>
             </li>
         }
     </ul>
