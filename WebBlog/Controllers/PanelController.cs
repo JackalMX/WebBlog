@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebBlog.Models;
-using WebBlog.Data.Repository;
 using WebBlog.ViewModels;
+using WebBlog.Data.Repository;
+using WebBlog.Data.FileManager;
 
 namespace WebBlog.Controllers
 {
@@ -15,10 +16,15 @@ namespace WebBlog.Controllers
     public class PanelController : Controller
     {
         private IRepository _repo;
+        private IFileManager _fileManager;
 
-        public PanelController(IRepository repo)
+        public PanelController(
+            IRepository repo,
+            IFileManager fileManager
+            )
         {
             _repo = repo;
+            _fileManager = fileManager;
         }        
 
         public IActionResult Index()
@@ -56,7 +62,7 @@ namespace WebBlog.Controllers
                 Id = vm.Id,
                 Title = vm.Title,
                 Body = vm.Body,
-                Image = ""
+                Image = await _fileManager.SaveImage(vm.Image)
             };
 
             if (post.Id > 0)

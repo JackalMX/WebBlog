@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using WebBlog.Data.Repository;
 //using System.Web.Providers.Entities;
 using Microsoft.AspNetCore.Identity;
+using WebBlog.Data.FileManager;
 
 namespace WebBlog
 {
@@ -48,6 +49,7 @@ namespace WebBlog
             });
 
             services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IFileManager, FileManager>();
 
             services.AddMvc();
             services.AddMvc(x => x.EnableEndpointRouting = false);

@@ -6,16 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using WebBlog.Models;
 using WebBlog.Data.Repository;
+using WebBlog.Data.FileManager;
 
 namespace WebBlog.Controllers
 {
     public class HomeController : Controller
     {
         private IRepository _repo;
+        private IFileManager _fileManager;
 
-        public HomeController(IRepository repo)
+        public HomeController(IRepository repo,
+            IFileManager fileManager)
         {
             _repo = repo;
+            _fileManager = fileManager;
         }
 
         public IActionResult Index()
@@ -30,6 +34,13 @@ namespace WebBlog.Controllers
             var post = _repo.GetPost(id);
 
             return View(post);
+        }
+
+        [HttpGet("/Image/{image}")]
+        public IActionResult Image(string image)
+        {
+            var mime = image.Substring(image.LastIndexOf('.') + 1);
+            return new FileStreamResult(_fileManager.ImageStream(image), $"image/{mime}");
         }
     }
 }
