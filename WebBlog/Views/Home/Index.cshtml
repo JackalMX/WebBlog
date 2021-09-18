@@ -22,7 +22,7 @@
                     @post.Title
                 </a>
                 <p>
-                    @post.Body
+                    @Html.Raw(post.Body)
                 </p>
                 @if (!String.IsNullOrEmpty(post.Image))
                 {

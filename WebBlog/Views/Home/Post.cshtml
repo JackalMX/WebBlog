@@ -12,6 +12,8 @@
         <img src = "@image_path" width="500" />
     }
 
-    <p>@Model.Body</p>
+    <div class="post-body">
+        @Html.Raw(Model.Body)
+    </div>
     <p>@Model.Created</p>
 </div>
