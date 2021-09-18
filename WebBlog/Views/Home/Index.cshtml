@@ -24,11 +24,14 @@
                 <p>
                     @post.Body
                 </p>
+                @if (!String.IsNullOrEmpty(post.Image))
+                {
                 <a class="post" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
                     <img src = "@image_path" width="500" />
-                </a>
-                <p>
-                    @post.Created
+                </a>                    
+                }
+                <p class="created">
+                    Posted: @post.Created
                 </p>
             </li>
         }
